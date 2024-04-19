@@ -15,6 +15,12 @@
 
 1. `php artisan db:seed --class=FakeSeeder`
 
+### Admin
+
+/admin
+
+- email: admin@localhost
+- password: admin
 
 # ERD
 
