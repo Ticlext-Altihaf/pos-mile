@@ -184,8 +184,9 @@ $generator = new Picqer\Barcode\BarcodeGeneratorPNG();
                         <tr>
                             <td class="tg-0pky" style="height:25px !important" colspan="3">Ref Pengiriman : {{$package->reference_number}}</td>
                         </tr>
-                        <tr hidden>
-                            <td class="tg-0pky" style="height:25px !important" colspan="3">   - Booking Code : CDS1222743433 </td>
+                        <tr>
+                            <td class="tg-0pky" style="height:25px !important"
+                                colspan="3">{{$package->instructions}}</td>
                         </tr>
                         <tr style="height: 15px">
                             <td class="tg-0pky">
@@ -247,7 +248,7 @@ $generator = new Picqer\Barcode\BarcodeGeneratorPNG();
                             </td>
                             <td class="tg-0pky">
                                 <center style="font-size:9pt; font-weight:bold;">
-                                    NON COD
+                                    {{$package->cod}}
                                 </center>
                             </td>
                         </tr>
@@ -369,7 +370,7 @@ $generator = new Picqer\Barcode\BarcodeGeneratorPNG();
                         </tr>
                         <tr style="height: 10px;">
                             <td class="tg-0pky" style="font-size: 5pt;">
-                                Jenis kiriman : {{$package->service_level}}
+                                Jenis kiriman : {{$package->service_name}}
                                 <br>
                                 Estimasi Antaran : {{$package->delivery_time->format('d/m/Y')}}
 

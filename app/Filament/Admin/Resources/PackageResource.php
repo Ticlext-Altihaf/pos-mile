@@ -53,8 +53,8 @@ class PackageResource extends Resource
                 ->label(__('Description'))
                 ->maxLength(255)
                 ->default(null),
-            MataUangInput::make('surcharge')
-                ->label(__('Surcharge'))
+            Forms\Components\TextInput::make('surcharge')
+                ->label(__('Insurance'))
                 ->maxLength(255)
                 ->default(null),
             MataUangInput::make('goods_value')
