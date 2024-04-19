@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Extensions\RajaOngkir;
+use App\Models\Package;
 use App\Models\Payment;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
@@ -48,10 +49,10 @@ class PackageFactory extends Factory
             'receiver_district' => $this->faker->city(),
             'receiver_village_or_subdistrict' => $this->faker->city(),
             'receiver_postal_code' => $this->faker->postcode(),
-            'service_level' => $this->faker->randomElement(['REG', 'YES', 'OKE']),
-            'package_type' => $this->faker->randomElement(['document', 'non-document']),
-            'cod' => $this->faker->randomElement(['yes', 'no']),
-            'reference_number' => $this->faker->word(),
+            'service_level' => $this->faker->randomElement(Package::$serviceLevel),
+            'package_type' => $this->faker->randomElement(Package::$packageType),
+            'cod' => $this->faker->randomElement(Package::$codOptions),
+            'reference_number' => $this->faker->numerify('###-###-###'),
             'instructions' => $this->faker->sentence()
         ];
     }

@@ -6,9 +6,10 @@ use App\Models\Koli;
 use App\Models\Package;
 use App\Models\Payment;
 use App\Models\User;
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
+
+// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 class DatabaseSeeder extends Seeder
 {
@@ -31,7 +32,15 @@ class DatabaseSeeder extends Seeder
             Payment::factory()->count(10)->create();
             Package::factory()->count(10)->create();
             Koli::factory()->count(10)->create();
-
+            $packages = Package::all();
+            foreach ($packages as $package) {
+                if ($package->kolis->count() === 0) {
+                    $koli = Koli::factory()->make();
+                    $koli->package_id = $package->id;
+                }
+                $package->refresh();
+                $package->save();
+            }
 
         }
     }

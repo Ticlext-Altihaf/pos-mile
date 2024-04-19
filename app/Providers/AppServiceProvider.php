@@ -3,8 +3,6 @@
 namespace App\Providers;
 
 use Filament\Support\Components\Component;
-use Filament\Support\Facades\FilamentView;
-use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -34,7 +32,7 @@ class AppServiceProvider extends ServiceProvider
     }
 }
 
-function money($money): string
+function money(float|int $money): string
 {
     return "Rp ".number_format($money, 0, ',', '.');
 }

@@ -13,6 +13,10 @@ class EditPackage extends EditRecord
     protected function getHeaderActions(): array
     {
         return [
+            Actions\Action::make('print')
+                ->label('Print')
+                ->icon('heroicon-o-printer')
+                ->url(fn($record) => route('print', $record->getKey())),
             Actions\DeleteAction::make(),
         ];
     }

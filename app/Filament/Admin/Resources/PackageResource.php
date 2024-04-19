@@ -8,12 +8,11 @@ use App\Filament\Admin\Resources\PackageResource\RelationManagers;
 use App\Forms\Components\MataUangInput;
 use App\Models\Package;
 use Filament\Forms;
+use Filament\Forms\Components\Repeater;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class PackageResource extends Resource
 {
@@ -195,13 +194,35 @@ class PackageResource extends Resource
                 Forms\Components\Select::make('user_id')
                     ->relationship('user', 'name')
                     ->required(),
-                Forms\Components\TextInput::make('code')
-                    ->required()
-                    ->maxLength(255),
+                MataUangInput::make('shipment_cost')
+                    ->label(__('Shipment Cost'))
+                    ->numeric()
+                    ->required(),
+                Forms\Components\TextInput::make('actual_weight')
+                    ->label(__('Actual Weight'))
+                    ->numeric()
+                    ->required(),
+                Forms\Components\TextInput::make('volume_weight')
+                    ->label(__('Volume Weight'))
+                    ->numeric()
+                    ->required(),
+                Forms\Components\TextInput::make('chargeable_weight')
+                    ->label(__('Chargeable Weight'))
+                    ->numeric()
+                    ->required(),
                 Forms\Components\TextInput::make('airway_bill')
                     ->required()
                     ->maxLength(255),
                 ...self::commonSchema(),
+                Repeater::make('kolis')
+                    ->hiddenLabel()
+                    ->collapsible()
+                    ->live()
+                    ->schema(\App\Filament\Admin\Resources\PackageResource::koliSchema())
+                    ->columns()
+                    ->relationship('kolis')
+                    ->columnSpanFull()
+                    ->addActionLabel(__('Tambah Koli')),
             ]);
     }
 
@@ -211,6 +232,7 @@ class PackageResource extends Resource
             ->columns([
                 Tables\Columns\TextColumn::make('payment.id')
                     ->numeric()
+                    ->url(fn($record) => PaymentResource::getUrl('edit', ['record' => $record->payment_id]))
                     ->sortable(),
                 Tables\Columns\TextColumn::make('user.name')
                     ->numeric()
