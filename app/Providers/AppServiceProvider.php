@@ -2,6 +2,9 @@
 
 namespace App\Providers;
 
+use Filament\Support\Components\Component;
+use Filament\Support\Facades\FilamentView;
+use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -19,6 +22,19 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+
+
+        Component::configureUsing(function (Component $component): void {
+            //check if method translateLabel exists
+            if (method_exists($component, 'translateLabel')) {
+                $component->translateLabel();
+            }
+        });
+
     }
+}
+
+function money($money): string
+{
+    return "Rp ".number_format($money, 0, ',', '.');
 }
