@@ -200,7 +200,7 @@
                                     {{$package->sender_address}}
 
                                     <span style="display:block">
-                                        Telp : 087777807673
+                                        Telp : {{$package->sender_phone}}
                                     </span>
                                                                     </div>
                             </span>
@@ -209,13 +209,10 @@
                                 <div>
                                     <span style="font-size: 9pt;">Kepada</span>
                                     <div style="font-size: 8pt;">
-                                        <div style="font-weight: bold;">SHERYL ABEDINEJAD</div>
-                                        <div>2218 COMISO DRIVE</div>
-                                        <div><b>US-UNITED STATES OF AMERICA</b>,,
-                                            US
-                                        </div>
+                                        <div style="font-weight: bold;">{{$package->receiver_name}}</div>
+                                        {{$package->receiver_address}}
                                         <div>
-                                            Telp : 16268488387
+                                            Telp : {{$package->receiver_phone}}
                                         </div>
                                     </div>
                                 </div>
@@ -223,7 +220,7 @@
                         </tr>
                         <tr style="height: 10px;">
                             <td class="tg-0pky">
-                                Berat : 0.4 KG <br>
+                                Berat : {{$package->actual_weight}} KG <br>
                                 10x10x1 cm (0.02)
                             </td>
                         </tr>
@@ -269,8 +266,8 @@
                         </tbody>
                     </table>
 
-
-                    <table class="tg" style="table-layout: fixed;width:calc(10cm - 10px);height:3cm;">
+                    @foreach($package->kolis as $koli)
+                        <table class="tg" style="table-layout: fixed;width:calc(10cm - 10px);height:3cm;">
                         <colgroup>
                             <col style="width: 4cm">
                             <col style="width: 3cm">
@@ -284,29 +281,29 @@
                                 Kantor Kirim :
                             </span>
                                 <span style="font-size:6pt">
-							KCU JAKARTA OCEANIA 11000<br>
+							{{$package->user->name}}<br>
 							<span>
 								<span>
-									Tanggal Posting : 18-Dec-2022<br>
+									Tanggal Posting : {{$package->created_at->format('d-M-Y')}}<br>
 								</span>
 								<span>
-									Wkt Posting : 18:10:44<br>
+									Wkt Posting : {{$package->created_at->format('H:i:s')}}<br>
 								</span>
 							                                                        <span>
-                                10x10x1 cm (0.02)
+                                {{$package->length ?? 0}}x{{$package->width ?? 0}}x{{$package->height ?? 0}} cm ({{$package->volume_weight ?? 0}})
+
                             </span>
                         </span></span></td>
                             <td class="tg-0pky">
                                 Pengirim <br>
-                                SNOWLATTES CO<br>
+                                {{$package->sender_name}}<br>
                                 <span style="font-size:5pt">
-                                APT MADISON PARK 33 AW  JL LETJEN S PARMAN KAV 28
+                                    {{$package->sender_address}}
                             </span>
                             </td>
                             <td class="tg-0pky">
-                                Berat : 0.4 KG<br>
-                                Bea kirim : Rp. 331.000 <br>
-                                Nett : Rp. 342.042
+                                Berat : {{$koli->weight}} KG <br>
+                                Bea kirim : {{\App\Providers\money($koli->shipping_cost)}}<br>
                             </td>
                         </tr>
                         <tr style="height: 10px; font-size:5pt;">
@@ -319,9 +316,9 @@
                             </td>
                             <td class="tg-0pky">
                                 Penerima <br>
-                                <b>SHERYL ABEDINEJAD</b><br>
+                                <b>{{$package->receiver_name}}</b><br>
                                 <span style="font-size:5pt">
-                                US-UNITED STATES OF AMERICA
+                                {{$package->receiver_address}}
                             </span>
                             </td>
                             <td class="tg-0pky">
@@ -338,7 +335,7 @@
                                             <!--?xml version="1.0" standalone="no"?-->
 
                                             <svg width="34.8" height="34.8" version="1.1" xmlns="http://www.w3.org/2000/svg">
-                                                <desc>https://www.posindonesia.co.id/id/tracking/RR061890402ID</desc>
+                                                <desc>https://www.posindonesia.co.id/id/tracking/{{$package->airway_bill}}</desc>
                                                 <g id="elements" fill="black" stroke="none">
                                                     <rect x="0" y="0" width="1.2" height="1.2"></rect>
                                                     <rect x="1.2" y="0" width="1.2" height="1.2"></rect>
@@ -790,7 +787,7 @@
                                     </div>
                                     <div style="float:left">
                                         <span style="font-size:6pt">
-                                                                                            RR061890402ID
+                                                                                            {{ $package->airway }}
                                                                                         <br>
                                         </span>
                                         <span style="font-size:4pt">
@@ -803,17 +800,17 @@
                                 Pernyataan pengirim<br>
                                 1. Setuju dengan ketentuan dan syarat pengiriman yang ditetapkan<br>
                                 PT. Pos Indonesia (Persero)<br>
-                                2. Isi Kiriman : Sweater<br>
+                                2. Isi Kiriman : {{$koli->description}}<br>
 
-                                3. Nilai pertanggungan isi kiriman : <b>Rp. 1.333.650</b><br>
-                                4. Asuransi : Rp. 6.668
+                                3. Nilai pertanggungan isi kiriman : <b>{{\App\Providers\money($koli->goods_value)}}</b><br>
+                                4. Asuransi : {{\App\Providers\money($koli->surcharge)}}
                             </td>
                         </tr>
                         <tr style="height: 10px;">
                             <td class="tg-0pky" style="font-size: 5pt;">
-                                Jenis kiriman : 010 Sameday Paket
+                                Jenis kiriman : {{$package->service_level}}
                                 <br>
-                                Estimasi Antaran : 28-Dec-2022
+                                Estimasi Antaran : {{$package->delivery_time->format('d/m/Y')}}
 
                                 <br>
 
@@ -821,6 +818,7 @@
                         </tr>
                         </tbody>
                     </table>
+                    @endforeach
                 </div>
             </div>
 

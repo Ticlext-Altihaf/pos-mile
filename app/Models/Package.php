@@ -41,6 +41,10 @@ class Package extends Model
 
     ];
 
+    protected $casts = [
+        'delivery_time' => 'datetime'
+    ];
+
     public function payment(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(Payment::class);
@@ -64,7 +68,13 @@ class Package extends Model
         $this->volume_weight = static::getActualWeight($data, true);
         $this->chargeable_weight = static::getActualWeight($data);
         $this->shipment_cost = RajaOngkir::shipment_costs($data['sender_city_or_regency'], $data['receiver_city_or_regency'], $this->chargeable_weight * 1000) ?? 0;
+        $this->delivery_time = $this->created_at ? $this->created_at->addDays(3) : now()->addDays(3);
+    }
 
+    public function save(array $options = [])
+    {
+        $this->updatePricing();
+        return parent::save($options);
     }
 
     protected static function boot()

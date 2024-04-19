@@ -42,6 +42,7 @@ return new /**/class extends Migration
             $table->unsignedInteger('volume_weight');
             $table->unsignedInteger('chargeable_weight');
             $table->unsignedInteger('shipment_cost');
+            $table->timestamp('delivery_time');
 
             $table->timestamps();
         });
