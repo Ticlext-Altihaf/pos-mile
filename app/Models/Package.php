@@ -3,7 +3,6 @@
 namespace App\Models;
 
 use App\Extensions\RajaOngkir;
-use Filament\Forms\Get;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -47,7 +46,8 @@ class Package extends Model
     ];
 
     protected $appends = [
-        'sla_days'
+        'sla_days',
+        'service_name'
     ];
 
     public static $serviceLevel = [
@@ -100,6 +100,23 @@ class Package extends Model
             'VG – PAKET VALUABLE GOODS (SLA:3)' => 3,
             'ECH – POS MARKETPLACE REGULER (SLA:2)' => 2,
             default => 0,
+        };
+    }
+
+    public function getServiceNameAttribute()
+    {
+        return match ($this->service_level) {
+            'Q9 - POS SAMEDAY (SLA: 1)' => 'POS SAMEDAY',
+            'PE – POS NEXT DAY (SLA: 1)' => 'POS NEXT DAY',
+            'PKH – POS REGULER (SLA:2)' => 'POS REGULER',
+            'PPB – PAKET – PPB PAKET (SLA: 30)' => 'PAKET – PPB PAKET',
+            'PPB – MBAG -POS EKONOI MBAG (SLA:0)' => 'MBAG -POS EKONOI MBAG',
+            'PJB – POS KARGO BARANG (SLA:3)' => 'POS KARGO BARANG',
+            'PJM – POS CARGO MOTOR (SLA: 14)' => 'POS CARGO MOTOR',
+            'DG – DANGEROUS GOODS (SLA:3)' => 'DANGEROUS GOODS',
+            'VG – PAKET VALUABLE GOODS (SLA:3)' => 'PAKET VALUABLE GOODS',
+            'ECH – POS MARKETPLACE REGULER (SLA:2)' => 'POS MARKETPLACE REGULER',
+            default => 'UNKNOWN',
         };
     }
 

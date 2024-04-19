@@ -1,5 +1,5 @@
 <?php
-$generator = new Picqer\Barcode\BarcodeGeneratorHTML();
+$generator = new Picqer\Barcode\BarcodeGeneratorPNG();
 ?>
 <!DOCTYPE html>
 <html lang="en" data-lt-installed="true"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -162,7 +162,7 @@ $generator = new Picqer\Barcode\BarcodeGeneratorHTML();
                         </colgroup>
                         <thead>
                         <tr>
-                            <th class="tg-0pky" colspan="2" style="height: 8px;">{{$package->service_level}}</th>
+                            <th class="tg-0pky" colspan="2" style="height: 8px;">POS {{$package->service_name}}</th>
                             <th class="tg-0pky center" rowspan="2">
                                 <img style="height: 60px;margin-top: 6px;filter:brightness(10%);" src="{{ asset('logo_pos.png') }}"/>
                             </th>
@@ -170,7 +170,9 @@ $generator = new Picqer\Barcode\BarcodeGeneratorHTML();
                         <tr>
                             <td class="tg-0pky center" colspan="2" style="height: 8px;">
                                 <div style="margin: 4px; -webkit-print-color-adjust: exact !important;">
-                                    {!! $generator->getBarcode('https://www.posindonesia.co.id/id/tracking/'.$package->airway, $generator::TYPE_CODE_128, 1, 50)  !!}
+                                    <img
+                                        src="data:image/png;base64,{!!base64_encode($generator->getBarcode($package->airway_bill, $generator::TYPE_CODE_39, 1, 50))!!}"
+                                        alt="barcode" style="width: 100%;height: 50px;"/>
                                 </div>
                                 <p style="padding: 0px;margin-top: 2px;margin-bottom: -1px;">
                                     {{$package->airway_bill}}
@@ -233,15 +235,14 @@ $generator = new Picqer\Barcode\BarcodeGeneratorHTML();
                             <td class="tg-0pky">
                                 <div style="vertical-align: middle;">
                                     <center style="font-size:9pt; font-weight:bold;">
-                                        US(US)
+                                        {{$package->receiver_postal_code}} ({{$package->receiver_postal_code}})
                                     </center>
                                 </div>
                             </td>
                             <td class="tg-0pky" rowspan="3">
                                 <center>
-                                    <!--?xml version="1.0" encoding="UTF-8"?-->
-                                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="85px" height="85px" viewBox="0 0 85 85"><defs><rect id="r0" width="4" height="4" fill="#000000"></rect></defs><rect x="0" y="0" width="85" height="85" fill="#fefefe"></rect><use x="0" y="0" xlink:href="#r0"></use><use x="4" y="0" xlink:href="#r0"></use><use x="8" y="0" xlink:href="#r0"></use><use x="12" y="0" xlink:href="#r0"></use><use x="16" y="0" xlink:href="#r0"></use><use x="20" y="0" xlink:href="#r0"></use><use x="24" y="0" xlink:href="#r0"></use><use x="32" y="0" xlink:href="#r0"></use><use x="36" y="0" xlink:href="#r0"></use><use x="48" y="0" xlink:href="#r0"></use><use x="56" y="0" xlink:href="#r0"></use><use x="60" y="0" xlink:href="#r0"></use><use x="64" y="0" xlink:href="#r0"></use><use x="68" y="0" xlink:href="#r0"></use><use x="72" y="0" xlink:href="#r0"></use><use x="76" y="0" xlink:href="#r0"></use><use x="80" y="0" xlink:href="#r0"></use><use x="0" y="4" xlink:href="#r0"></use><use x="24" y="4" xlink:href="#r0"></use><use x="36" y="4" xlink:href="#r0"></use><use x="48" y="4" xlink:href="#r0"></use><use x="56" y="4" xlink:href="#r0"></use><use x="80" y="4" xlink:href="#r0"></use><use x="0" y="8" xlink:href="#r0"></use><use x="8" y="8" xlink:href="#r0"></use><use x="12" y="8" xlink:href="#r0"></use><use x="16" y="8" xlink:href="#r0"></use><use x="24" y="8" xlink:href="#r0"></use><use x="32" y="8" xlink:href="#r0"></use><use x="40" y="8" xlink:href="#r0"></use><use x="48" y="8" xlink:href="#r0"></use><use x="56" y="8" xlink:href="#r0"></use><use x="64" y="8" xlink:href="#r0"></use><use x="68" y="8" xlink:href="#r0"></use><use x="72" y="8" xlink:href="#r0"></use><use x="80" y="8" xlink:href="#r0"></use><use x="0" y="12" xlink:href="#r0"></use><use x="8" y="12" xlink:href="#r0"></use><use x="12" y="12" xlink:href="#r0"></use><use x="16" y="12" xlink:href="#r0"></use><use x="24" y="12" xlink:href="#r0"></use><use x="32" y="12" xlink:href="#r0"></use><use x="44" y="12" xlink:href="#r0"></use><use x="56" y="12" xlink:href="#r0"></use><use x="64" y="12" xlink:href="#r0"></use><use x="68" y="12" xlink:href="#r0"></use><use x="72" y="12" xlink:href="#r0"></use><use x="80" y="12" xlink:href="#r0"></use><use x="0" y="16" xlink:href="#r0"></use><use x="8" y="16" xlink:href="#r0"></use><use x="12" y="16" xlink:href="#r0"></use><use x="16" y="16" xlink:href="#r0"></use><use x="24" y="16" xlink:href="#r0"></use><use x="32" y="16" xlink:href="#r0"></use><use x="36" y="16" xlink:href="#r0"></use><use x="40" y="16" xlink:href="#r0"></use><use x="56" y="16" xlink:href="#r0"></use><use x="64" y="16" xlink:href="#r0"></use><use x="68" y="16" xlink:href="#r0"></use><use x="72" y="16" xlink:href="#r0"></use><use x="80" y="16" xlink:href="#r0"></use><use x="0" y="20" xlink:href="#r0"></use><use x="24" y="20" xlink:href="#r0"></use><use x="56" y="20" xlink:href="#r0"></use><use x="80" y="20" xlink:href="#r0"></use><use x="0" y="24" xlink:href="#r0"></use><use x="4" y="24" xlink:href="#r0"></use><use x="8" y="24" xlink:href="#r0"></use><use x="12" y="24" xlink:href="#r0"></use><use x="16" y="24" xlink:href="#r0"></use><use x="20" y="24" xlink:href="#r0"></use><use x="24" y="24" xlink:href="#r0"></use><use x="32" y="24" xlink:href="#r0"></use><use x="40" y="24" xlink:href="#r0"></use><use x="48" y="24" xlink:href="#r0"></use><use x="56" y="24" xlink:href="#r0"></use><use x="60" y="24" xlink:href="#r0"></use><use x="64" y="24" xlink:href="#r0"></use><use x="68" y="24" xlink:href="#r0"></use><use x="72" y="24" xlink:href="#r0"></use><use x="76" y="24" xlink:href="#r0"></use><use x="80" y="24" xlink:href="#r0"></use><use x="36" y="28" xlink:href="#r0"></use><use x="40" y="28" xlink:href="#r0"></use><use x="0" y="32" xlink:href="#r0"></use><use x="4" y="32" xlink:href="#r0"></use><use x="8" y="32" xlink:href="#r0"></use><use x="12" y="32" xlink:href="#r0"></use><use x="24" y="32" xlink:href="#r0"></use><use x="32" y="32" xlink:href="#r0"></use><use x="40" y="32" xlink:href="#r0"></use><use x="52" y="32" xlink:href="#r0"></use><use x="64" y="32" xlink:href="#r0"></use><use x="68" y="32" xlink:href="#r0"></use><use x="72" y="32" xlink:href="#r0"></use><use x="80" y="32" xlink:href="#r0"></use><use x="0" y="36" xlink:href="#r0"></use><use x="8" y="36" xlink:href="#r0"></use><use x="16" y="36" xlink:href="#r0"></use><use x="20" y="36" xlink:href="#r0"></use><use x="28" y="36" xlink:href="#r0"></use><use x="36" y="36" xlink:href="#r0"></use><use x="40" y="36" xlink:href="#r0"></use><use x="48" y="36" xlink:href="#r0"></use><use x="52" y="36" xlink:href="#r0"></use><use x="56" y="36" xlink:href="#r0"></use><use x="60" y="36" xlink:href="#r0"></use><use x="72" y="36" xlink:href="#r0"></use><use x="80" y="36" xlink:href="#r0"></use><use x="0" y="40" xlink:href="#r0"></use><use x="4" y="40" xlink:href="#r0"></use><use x="16" y="40" xlink:href="#r0"></use><use x="24" y="40" xlink:href="#r0"></use><use x="28" y="40" xlink:href="#r0"></use><use x="32" y="40" xlink:href="#r0"></use><use x="48" y="40" xlink:href="#r0"></use><use x="52" y="40" xlink:href="#r0"></use><use x="56" y="40" xlink:href="#r0"></use><use x="68" y="40" xlink:href="#r0"></use><use x="0" y="44" xlink:href="#r0"></use><use x="12" y="44" xlink:href="#r0"></use><use x="36" y="44" xlink:href="#r0"></use><use x="48" y="44" xlink:href="#r0"></use><use x="52" y="44" xlink:href="#r0"></use><use x="56" y="44" xlink:href="#r0"></use><use x="64" y="44" xlink:href="#r0"></use><use x="8" y="48" xlink:href="#r0"></use><use x="16" y="48" xlink:href="#r0"></use><use x="24" y="48" xlink:href="#r0"></use><use x="36" y="48" xlink:href="#r0"></use><use x="40" y="48" xlink:href="#r0"></use><use x="44" y="48" xlink:href="#r0"></use><use x="72" y="48" xlink:href="#r0"></use><use x="76" y="48" xlink:href="#r0"></use><use x="80" y="48" xlink:href="#r0"></use><use x="32" y="52" xlink:href="#r0"></use><use x="40" y="52" xlink:href="#r0"></use><use x="52" y="52" xlink:href="#r0"></use><use x="56" y="52" xlink:href="#r0"></use><use x="60" y="52" xlink:href="#r0"></use><use x="64" y="52" xlink:href="#r0"></use><use x="72" y="52" xlink:href="#r0"></use><use x="80" y="52" xlink:href="#r0"></use><use x="0" y="56" xlink:href="#r0"></use><use x="4" y="56" xlink:href="#r0"></use><use x="8" y="56" xlink:href="#r0"></use><use x="12" y="56" xlink:href="#r0"></use><use x="16" y="56" xlink:href="#r0"></use><use x="20" y="56" xlink:href="#r0"></use><use x="24" y="56" xlink:href="#r0"></use><use x="36" y="56" xlink:href="#r0"></use><use x="40" y="56" xlink:href="#r0"></use><use x="52" y="56" xlink:href="#r0"></use><use x="56" y="56" xlink:href="#r0"></use><use x="80" y="56" xlink:href="#r0"></use><use x="0" y="60" xlink:href="#r0"></use><use x="24" y="60" xlink:href="#r0"></use><use x="36" y="60" xlink:href="#r0"></use><use x="40" y="60" xlink:href="#r0"></use><use x="44" y="60" xlink:href="#r0"></use><use x="48" y="60" xlink:href="#r0"></use><use x="56" y="60" xlink:href="#r0"></use><use x="60" y="60" xlink:href="#r0"></use><use x="72" y="60" xlink:href="#r0"></use><use x="80" y="60" xlink:href="#r0"></use><use x="0" y="64" xlink:href="#r0"></use><use x="8" y="64" xlink:href="#r0"></use><use x="12" y="64" xlink:href="#r0"></use><use x="16" y="64" xlink:href="#r0"></use><use x="24" y="64" xlink:href="#r0"></use><use x="44" y="64" xlink:href="#r0"></use><use x="56" y="64" xlink:href="#r0"></use><use x="64" y="64" xlink:href="#r0"></use><use x="68" y="64" xlink:href="#r0"></use><use x="76" y="64" xlink:href="#r0"></use><use x="80" y="64" xlink:href="#r0"></use><use x="0" y="68" xlink:href="#r0"></use><use x="8" y="68" xlink:href="#r0"></use><use x="12" y="68" xlink:href="#r0"></use><use x="16" y="68" xlink:href="#r0"></use><use x="24" y="68" xlink:href="#r0"></use><use x="32" y="68" xlink:href="#r0"></use><use x="40" y="68" xlink:href="#r0"></use><use x="52" y="68" xlink:href="#r0"></use><use x="68" y="68" xlink:href="#r0"></use><use x="72" y="68" xlink:href="#r0"></use><use x="76" y="68" xlink:href="#r0"></use><use x="0" y="72" xlink:href="#r0"></use><use x="8" y="72" xlink:href="#r0"></use><use x="12" y="72" xlink:href="#r0"></use><use x="16" y="72" xlink:href="#r0"></use><use x="24" y="72" xlink:href="#r0"></use><use x="32" y="72" xlink:href="#r0"></use><use x="36" y="72" xlink:href="#r0"></use><use x="44" y="72" xlink:href="#r0"></use><use x="60" y="72" xlink:href="#r0"></use><use x="64" y="72" xlink:href="#r0"></use><use x="68" y="72" xlink:href="#r0"></use><use x="72" y="72" xlink:href="#r0"></use><use x="0" y="76" xlink:href="#r0"></use><use x="24" y="76" xlink:href="#r0"></use><use x="32" y="76" xlink:href="#r0"></use><use x="36" y="76" xlink:href="#r0"></use><use x="40" y="76" xlink:href="#r0"></use><use x="44" y="76" xlink:href="#r0"></use><use x="48" y="76" xlink:href="#r0"></use><use x="56" y="76" xlink:href="#r0"></use><use x="0" y="80" xlink:href="#r0"></use><use x="4" y="80" xlink:href="#r0"></use><use x="8" y="80" xlink:href="#r0"></use><use x="12" y="80" xlink:href="#r0"></use><use x="16" y="80" xlink:href="#r0"></use><use x="20" y="80" xlink:href="#r0"></use><use x="24" y="80" xlink:href="#r0"></use><use x="32" y="80" xlink:href="#r0"></use><use x="44" y="80" xlink:href="#r0"></use><use x="48" y="80" xlink:href="#r0"></use><use x="52" y="80" xlink:href="#r0"></use><use x="60" y="80" xlink:href="#r0"></use><use x="76" y="80" xlink:href="#r0"></use></svg>
-
+                                    <img src="{{(new \chillerlan\QRCode\QRCode())->render($package->airway_bill)}}"
+                                         alt="QR Code"/>
                                 </center>
                             </td>
                             <td class="tg-0pky">
@@ -308,7 +309,7 @@ $generator = new Picqer\Barcode\BarcodeGeneratorHTML();
                             </td>
                             <td class="tg-0pky">
                                 Berat : {{$koli->weight}} KG <br>
-                                Bea kirim : {{\App\Providers\money($koli->shipping_cost)}}<br>
+                                Bea kirim : {{\App\Providers\money($package->shipment_cost)}}<br>
                             </td>
                         </tr>
                         <tr style="height: 10px; font-size:5pt;">
@@ -334,16 +335,20 @@ $generator = new Picqer\Barcode\BarcodeGeneratorHTML();
                             </td></tr>
                         <tr style="height: 10px;">
                             <td class="tg-0pky">
-                                <div style="padding:5px">
+                                <div style="padding:3px">
                                     <div style="float:left; margin-right:6px">
                                         <center>
-                                            <!--?xml version="1.0" standalone="no"?-->
+
+                                            <img
+                                                style="width: 50px;"
+                                                src="{{(new \chillerlan\QRCode\QRCode())->render("https://www.posindonesia.co.id/id/tracking/".$package->airway_bill)}}"
+                                                alt="QR Code"/>
 
                                         </center>
                                     </div>
                                     <div style="float:left">
                                         <span style="font-size:6pt">
-                                                                                            {{ $package->airway }}
+                                                                                            {{$package->airway_bill}}
                                                                                         <br>
                                         </span>
                                         <span style="font-size:4pt">
@@ -359,7 +364,7 @@ $generator = new Picqer\Barcode\BarcodeGeneratorHTML();
                                 2. Isi Kiriman : {{$koli->description}}<br>
 
                                 3. Nilai pertanggungan isi kiriman : <b>{{\App\Providers\money($koli->goods_value)}}</b><br>
-                                4. Asuransi : {{\App\Providers\money($koli->surcharge)}}
+                                4. Asuransi : {{$koli->surcharge}}
                             </td>
                         </tr>
                         <tr style="height: 10px;">
