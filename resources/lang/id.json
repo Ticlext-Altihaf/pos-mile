@@ -32,5 +32,26 @@
     "Amount": "Jumlah",
     "Delivery": "Pengiriman",
     "City": "Kota",
-    "Payment Method": "Metode Pembayaran"
+    "Payment Method": "Metode Pembayaran",
+    "Sender name": "Nama Pengirim",
+    "Sender address": "Alamat Pengirim",
+    "Sender phone": "Telepon Pengirim",
+    "Sender postal code": "Kode Pos Pengirim",
+    "Receiver name": "Nama Penerima",
+    "Receiver address": "Alamat Penerima",
+    "Receiver phone": "Telepon Penerima",
+    "Receiver district": "Kecamatan Penerima",
+    "Receiver village or subdistrict": "Desa atau Kelurahan Penerima",
+    "Receiver postal code": "Kode Pos Penerima",
+    "Service level": "Service Level",
+    "Package type": "Jenis Paket",
+    "Reference number": "Nomor Referensi",
+    "Weight": "Berat",
+    "Length": "Panjang",
+    "Width": "Lebar",
+    "Height": "Tinggi",
+    "Surcharge": "Biaya Tambahan",
+    "Goods value": "Harga Barang",
+    "Total": "Total"
+
 }

@@ -106,4 +106,15 @@ class RajaOngkir
         return $cost;
     }
 
+    public static function province_id(string $province)
+    {
+        $provinces = self::provinces();
+        foreach ($provinces as $p) {
+            if ($p['province'] == $province) {
+                return $p['province_id'];
+            }
+        }
+        return null;
+    }
+
 }

@@ -17,7 +17,9 @@ class PaymentFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'user_id' => \App\Models\User::inRandomOrder()->first()->id,
+            'amount' => $this->faker->randomNumber(4),
+            'payment_method' => $this->faker->randomElement(\App\Models\Payment::$paymentMethods),
         ];
     }
 }

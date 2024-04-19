@@ -16,6 +16,10 @@ class Payment extends Model
         'payment_method',
     ];
 
+    public static $paymentMethods = [
+        "Cash" => "Cash"
+    ];
+
 
     public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {

@@ -2,6 +2,9 @@
 
 namespace Database\Seeders;
 
+use App\Models\Koli;
+use App\Models\Package;
+use App\Models\Payment;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -22,5 +25,14 @@ class DatabaseSeeder extends Seeder
             'password' => Hash::make('admin'),
             'is_admin' => true,
         ]);
+
+        if(config('app.env') === 'local') {
+            User::factory()->count(10)->create();
+            Payment::factory()->count(10)->create();
+            Package::factory()->count(10)->create();
+            Koli::factory()->count(10)->create();
+
+
+        }
     }
 }

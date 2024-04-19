@@ -11,6 +11,7 @@ class Package extends Model
 {
     use HasFactory;
 
+
     protected $fillable = [
         'payment_id',
         'user_id',
@@ -45,6 +46,31 @@ class Package extends Model
         'delivery_time' => 'datetime'
     ];
 
+    protected $appends = [
+        'sla_days'
+    ];
+
+    public static $serviceLevel = [
+        'Q9 - POS SAMEDAY (SLA: 1)'         => 'Q9 - POS SAMEDAY (SLA: 1)',
+        'PE – POS NEXT DAY (SLA: 1)'         => 'PE – POS NEXT DAY (SLA: 1)',
+        'PKH – POS REGULER (SLA:2)'           => 'PKH – POS REGULER (SLA:2)',
+        'PPB – PAKET – PPB PAKET (SLA: 30)' => 'PPB – PAKET – PPB PAKET (SLA: 30)',
+        'PPB – MBAG -POS EKONOI MBAG (SLA:0)' => 'PPB – MBAG -POS EKONOI MBAG (SLA:0)',
+        'PJB – POS KARGO BARANG (SLA:3)' => 'PJB – POS KARGO BARANG (SLA:3)',
+        'PJM – POS CARGO MOTOR (SLA: 14)' => 'PJM – POS CARGO MOTOR (SLA: 14)',
+        'DG – DANGEROUS GOODS (SLA:3)' => 'DG – DANGEROUS GOODS (SLA:3)',
+        'VG – PAKET VALUABLE GOODS (SLA:3)' => 'VG – PAKET VALUABLE GOODS (SLA:3)',
+        'ECH – POS MARKETPLACE REGULER (SLA:2)' => 'ECH – POS MARKETPLACE REGULER (SLA:2)',
+    ];
+    public static $packageType = [
+        "Paket" => "Paket",
+        "Dokumen" => "Dokumen",
+    ];
+    public static mixed $codOptions = [
+        "NON-COD" => "NON-COD",
+        "COD" => "COD",
+        "CCOD" => "CCOD",
+    ];
     public function payment(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(Payment::class);
@@ -60,6 +86,23 @@ class Package extends Model
         return $this->hasMany(Koli::class);
     }
 
+
+    public function getSlaDaysAttribute()
+    {
+        return match ($this->service_level) {
+            'Q9 - POS SAMEDAY (SLA: 1)' => 1,
+            'PE – POS NEXT DAY (SLA: 1)' => 1,
+            'PKH – POS REGULER (SLA:2)' => 2,
+            'PPB – PAKET – PPB PAKET (SLA: 30)' => 30,
+            'PJB – POS KARGO BARANG (SLA:3)' => 3,
+            'PJM – POS CARGO MOTOR (SLA: 14)' => 14,
+            'DG – DANGEROUS GOODS (SLA:3)' => 3,
+            'VG – PAKET VALUABLE GOODS (SLA:3)' => 3,
+            'ECH – POS MARKETPLACE REGULER (SLA:2)' => 2,
+            default => 0,
+        };
+    }
+
     public function updatePricing()
     {
         $data = $this->toArray();
@@ -67,9 +110,13 @@ class Package extends Model
         $this->actual_weight = static::getActualWeight($data, weightOnly: true);
         $this->volume_weight = static::getActualWeight($data, true);
         $this->chargeable_weight = static::getActualWeight($data);
+        if(!$this->sender_city_or_regency || !$this->receiver_city_or_regency) {
+            throw new \Exception('Sender city or receiver city is required');
+        }
         $this->shipment_cost = RajaOngkir::shipment_costs($data['sender_city_or_regency'], $data['receiver_city_or_regency'], $this->chargeable_weight * 1000) ?? 0;
-        $this->delivery_time = $this->created_at ? $this->created_at->addDays(3) : now()->addDays(3);
+        $this->delivery_time = $this->created_at ? $this->created_at->addDays($this->getSlaDaysAttribute()) : now()->addDays($this->getSlaDaysAttribute());
     }
+
 
     public function save(array $options = [])
     {

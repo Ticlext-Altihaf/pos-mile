@@ -53,9 +53,6 @@ class PackageResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('payment.id')
-                    ->numeric()
-                    ->sortable(),
                 Tables\Columns\TextColumn::make('user.name')
                     ->numeric()
                     ->sortable(),
@@ -73,10 +70,6 @@ class PackageResource extends Resource
                     ->searchable(),
                 Tables\Columns\TextColumn::make('receiver_phone')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('receiver_province')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('receiver_city_or_regency')
-                    ->searchable(),
                 Tables\Columns\TextColumn::make('receiver_district')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('receiver_village_or_subdistrict')
@@ -87,7 +80,8 @@ class PackageResource extends Resource
                     ->searchable(),
                 Tables\Columns\TextColumn::make('package_type')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('is_cod')
+                Tables\Columns\TextColumn::make('cod')
+                    ->label(__("COD"))
                     ->searchable(),
                 Tables\Columns\TextColumn::make('reference_number')
                     ->searchable(),
@@ -115,8 +109,6 @@ class PackageResource extends Resource
                 Tables\Columns\TextColumn::make('total')
                     ->numeric()
                     ->sortable(),
-                Tables\Columns\TextColumn::make('code')
-                    ->searchable(),
                 Tables\Columns\TextColumn::make('airway_bill')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('created_at')

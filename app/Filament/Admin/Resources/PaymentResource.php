@@ -26,7 +26,7 @@ class PaymentResource extends Resource
         return __('Payment');
     }
 
-    public static function commonSchema()
+    public static function commonSchema(): array
     {
         return [
             MataUangInput::make('amount')
@@ -34,9 +34,7 @@ class PaymentResource extends Resource
                 ->required(),
             Forms\Components\Select::make('payment_method')
                 ->label(__('Payment Method'))
-                ->options([
-                    "Cash" => "Cash"
-                ])
+                ->options(Payment::$paymentMethods)
                 ->required(),
         ];
     }

@@ -146,35 +146,16 @@ class PackageResource extends Resource
             __('Delivery') => [
                 Forms\Components\Select::make('service_level')
                     ->label(__('Service'))
-                    ->options([
-
-                        'Q9 - POS SAMEDAY (SLA: 1)' => 'Q9 - POS SAMEDAY (SLA: 1)',
-                        'PE – POS NEXT DAY (SLA: 1)' => 'PE – POS NEXT DAY (SLA: 1)',
-                        'PKH – POS REGULER (SLA:2)' => 'PKH – POS REGULER (SLA:2)',
-                        'PPB – PAKET – PPB PAKET (SLA: 30)' => 'PPB – PAKET – PPB PAKET (SLA: 30)',
-                        'PPB – MBAG -POS EKONOI MBAG (SLA:0)' => 'PPB – MBAG -POS EKONOI MBAG (SLA:0)',
-                        'PJB – POS KARGO BARANG (SLA:3)' => 'PJB – POS KARGO BARANG (SLA:3)',
-                        'PJM – POS CARGO MOTOR (SLA: 14)' => 'PJM – POS CARGO MOTOR (SLA: 14)',
-                        'DG – DANGEROUS GOODS (SLA:3)' => 'DG – DANGEROUS GOODS (SLA:3)',
-                        'VG – PAKET VALUABLE GOODS (SLA:3)' => 'VG – PAKET VALUABLE GOODS (SLA:3)',
-                        'ECH – POS MARKETPLACE REGULER (SLA:2)' => 'ECH – POS MARKETPLACE REGULER (SLA:2)',
-                    ])
+                    ->options(Package::$serviceLevel)
                     ->required(),
                 Forms\Components\Select::make('package_type')
                     ->label(__('Package Type'))
-                    ->options([
-                        "Paket" => "Paket",
-                        "Dokumen" => "Dokumen",
-                    ])
+                    ->options(Package::$packageType)
                     ->required(),
                 Forms\Components\Select::make('cod')
-                    ->label(__('Is COD'))
+                    ->label(__('COD'))
                     ->required()
-                    ->options([
-                        "NON-COD" => "NON-COD",
-                        "COD" => "COD",
-                        "CCOD" => "CCOD",
-                    ])
+                    ->options(Package::$codOptions)
                     ->default(0),
                 Forms\Components\TextInput::make('reference_number')
                     ->label(__('Reference Number'))
