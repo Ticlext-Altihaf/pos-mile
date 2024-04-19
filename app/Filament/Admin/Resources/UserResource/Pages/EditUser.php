@@ -16,4 +16,13 @@ class EditUser extends EditRecord
             Actions\DeleteAction::make(),
         ];
     }
+
+
+    // Prevent setting password to null
+    protected function mutateFormDataBeforeSave(array $data): array
+    {
+        if ($data['password'] == null) unset($data['password']);
+
+        return parent::mutateFormDataBeforeSave($data);
+    }
 }

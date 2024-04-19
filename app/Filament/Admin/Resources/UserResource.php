@@ -10,8 +10,6 @@ use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 use STS\FilamentImpersonate\Tables\Actions\Impersonate;
 
 class UserResource extends Resource
@@ -58,6 +56,9 @@ class UserResource extends Resource
                     ->searchable(),
                 Tables\Columns\TextColumn::make('organization')
                     ->searchable(),
+                Tables\Columns\TextColumn::make('packages_count')
+                    ->label(__('Packages'))
+                    ->getStateUsing(fn($record) => $record->packages()->count()),
                 Tables\Columns\IconColumn::make('is_admin')
                     ->boolean(),
                 Tables\Columns\TextColumn::make('created_at')
